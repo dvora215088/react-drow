@@ -35,7 +35,7 @@ import logo from "./assets/logo.png";
 // Custom styled components
 import { styled } from "@mui/material/styles";
 
-const AnimatedButton = styled(Button)(({ theme }) => ({
+const AnimatedButton = styled(Button)(({  }) => ({
   position: "relative",
   overflow: "hidden",
   "&::after": {
@@ -62,7 +62,7 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const AnimatedTextField = styled(TextField)(({ theme }) => ({
+const AnimatedTextField = styled(TextField)(({  }) => ({
   "& .MuiOutlinedInput-root": {
     transition: "transform 0.3s, box-shadow 0.3s",
     "&:hover, &.Mui-focused": {
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
-
+  animationComplete
   // Custom theme with blue color scheme
   const theme = createTheme({
     palette: {
@@ -728,6 +728,7 @@ const Login: React.FC = () => {
             </CardContent>
           </Card>
         </Fade>
+        
       </Box>
     </ThemeProvider>
   );

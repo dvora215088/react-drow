@@ -83,7 +83,7 @@ const Register: React.FC = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [animationComplete, setAnimationComplete] = useState(false);
   const [validationError, setValidationError] = useState("");
-
+  animationComplete
   // Custom theme with blue color scheme
   const theme = createTheme({
     palette: {

@@ -163,10 +163,7 @@ const Auth = () => {
     navigate('/register');
   };
 
-  // פונקציות לניתוב כפתורים נוספים
-  const handleExploreMore = () => {
-    navigate('/about');
-  };
+
   
   const handleJoinNow = () => {
     navigate('/register');
