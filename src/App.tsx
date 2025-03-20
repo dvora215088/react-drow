@@ -1,15 +1,18 @@
-
-import './App.css'
-import Auth from './Auth'
-import { AuthProvider } from './context/AuthContext'
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
+import Auth from './Auth';
+import { AuthProvider } from './context/AuthContext';
+import Login from './login';
 
 function App() {
-
   return (
     <AuthProvider>
-    < Auth />
-  </AuthProvider>
-  )
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Auth />} />
+      </Routes>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
