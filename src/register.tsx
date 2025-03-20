@@ -33,7 +33,7 @@ import logo from "./assets/logo.png";
 // Custom styled components
 import { styled } from "@mui/material/styles";
 
-const AnimatedButton = styled(Button)(({ theme }) => ({
+const AnimatedButton = styled(Button)(({  }) => ({
   position: "relative",
   overflow: "hidden",
   "&::after": {
@@ -60,7 +60,7 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const AnimatedTextField = styled(TextField)(({ theme }) => ({
+const AnimatedTextField = styled(TextField)(({  }) => ({
   "& .MuiOutlinedInput-root": {
     transition: "transform 0.3s, box-shadow 0.3s",
     "&:hover, &.Mui-focused": {
