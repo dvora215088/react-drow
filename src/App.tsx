@@ -1,14 +1,14 @@
 
 import './App.css'
 import Auth from './Auth'
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
 
   return (
-    <>
-       <Auth></Auth>
-       
-    </>
+    <AuthProvider>
+    < Auth />
+  </AuthProvider>
   )
 }
 

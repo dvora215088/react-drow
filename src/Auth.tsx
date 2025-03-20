@@ -1,4 +1,5 @@
-import  { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -147,13 +148,32 @@ const SubtleElement = ({ index }: SubtleElementProps) => {
 
 const Auth = () => {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+  const navigate = useNavigate(); // הוספת ניווט באמצעות React Router
+  
+  // פונקציות ניתוב
+  const handleLogin = () => {
+    navigate('/login');
+  };
+  
+  const handleRegister = () => {
+    navigate('/register');
+  };
+
+  // פונקציות לניתוב כפתורים נוספים
+  const handleExploreMore = () => {
+    navigate('/about');
+  };
+  
+  const handleJoinNow = () => {
+    navigate('/register');
+  };
   
   return (
     <ThemeProvider theme={theme}>
-      {/* קונטיינר ראשי */}
+      {/* קונטיינר ראשי - הוספת overflow-x: hidden כדי למנוע גלילה אופקית */}
       <Box 
         sx={{
-          width: '100vw',
+          width: '100%',
           height: '100vh',
           margin: 0,
           padding: 0,
@@ -161,7 +181,9 @@ const Auth = () => {
           position: 'relative',
           background: 'linear-gradient(145deg, #ECEFF1 0%, #CFD8DC 100%)',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          overflowX: 'hidden', // מניעת גלילה אופקית
+          maxWidth: '100vw', // הגבלת רוחב
         }}
       >
         {/* רקע עדין */}
@@ -214,6 +236,7 @@ const Auth = () => {
                 variant="outlined"
                 color="primary"
                 startIcon={<LoginIcon />}
+                onClick={handleLogin} // הוספת ניתוב לעמוד התחברות
                 onMouseEnter={() => setHoveredButton("login")}
                 onMouseLeave={() => setHoveredButton(null)}
                 sx={{ 
@@ -238,6 +261,7 @@ const Auth = () => {
                 variant="contained" 
                 color="primary"
                 startIcon={<PersonAddIcon />}
+                onClick={handleRegister} // הוספת ניתוב לעמוד הרשמה
                 onMouseEnter={() => setHoveredButton("register")}
                 onMouseLeave={() => setHoveredButton(null)}
                 sx={{ 
@@ -262,7 +286,7 @@ const Auth = () => {
         </AppBar>
         
         {/* קונטנט ראשי */}
-        <Grid container spacing={4} sx={{ flex: 1, zIndex: 1, p: 4, pt: 6 }}>
+        <Grid container spacing={4} sx={{ flex: 1, zIndex: 1, p: 4, pt: 6, maxWidth: '100%', m: 0 }}>
           <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Box sx={{ maxWidth: '100%', position: 'relative' }}>
               <Paper
@@ -407,6 +431,7 @@ const Auth = () => {
                   variant="outlined"
                   color="primary"
                   size="large"
+                  onClick={handleExploreMore} // הוספת ניתוב לעמוד "גלה עוד"
                   sx={{
                     borderRadius: 6,
                     px: 3.5,
@@ -428,6 +453,7 @@ const Auth = () => {
                   variant="contained"
                   color="secondary"
                   size="large"
+                  onClick={handleJoinNow} // הוספת ניתוב לעמוד הרשמה
                   sx={{
                     borderRadius: 6,
                     px: 3.5,
