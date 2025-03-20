@@ -15,6 +15,33 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { blueGrey } from '@mui/material/colors';
 
+// Extend the Palette interface to include custom properties
+declare module '@mui/material/styles' {
+  interface Palette {
+    neutral: Palette['primary'];
+    accent: {
+      blue: string;
+      teal: string;
+      green: string;
+      blueGray: string;
+      darkGray: string;
+      lightGray: string;
+    };
+  }
+  
+  interface PaletteOptions {
+    neutral?: PaletteOptions['primary'];
+    accent?: {
+      blue?: string;
+      teal?: string;
+      green?: string;
+      blueGray?: string;
+      darkGray?: string;
+      lightGray?: string;
+    };
+  }
+}
+
 // יצירת תמה בצבעי אפור-כחול-ירוק
 const theme = createTheme({
   palette: {
@@ -62,7 +89,11 @@ const theme = createTheme({
 });
 
 // אלמנט דקורטיבי עדין
-const SubtleElement = ({ index }) => {
+interface SubtleElementProps {
+  index: number;
+}
+
+const SubtleElement = ({ index }: SubtleElementProps) => {
   const colors = [
     theme.palette.accent.blue,
     theme.palette.accent.teal,
@@ -115,7 +146,7 @@ const SubtleElement = ({ index }) => {
 };
 
 const Auth = () => {
-  const [hoveredButton, setHoveredButton] = useState(null);
+  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   
   return (
     <ThemeProvider theme={theme}>
@@ -174,7 +205,8 @@ const Auth = () => {
                   }
                 }}
               >
-צבע בקליק              </Typography>
+                צבע בקליק
+              </Typography>
             </Box>
             
             <Box sx={{ display: 'flex', gap: 3 }}>
@@ -182,7 +214,7 @@ const Auth = () => {
                 variant="outlined"
                 color="primary"
                 startIcon={<LoginIcon />}
-                onMouseEnter={() => setHoveredButton('login')}
+                onMouseEnter={() => setHoveredButton("login")}
                 onMouseLeave={() => setHoveredButton(null)}
                 sx={{ 
                   fontWeight: '500',
@@ -206,7 +238,7 @@ const Auth = () => {
                 variant="contained" 
                 color="primary"
                 startIcon={<PersonAddIcon />}
-                onMouseEnter={() => setHoveredButton('register')}
+                onMouseEnter={() => setHoveredButton("register")}
                 onMouseLeave={() => setHoveredButton(null)}
                 sx={{ 
                   fontWeight: '500',
@@ -266,12 +298,14 @@ const Auth = () => {
                     animation: 'float 8s infinite ease-in-out',
                   }}
                 />
-                <style jsx>{`
-                  @keyframes float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-6px); }
-                  }
-                `}</style>
+                <style>
+                  {`
+                    @keyframes float {
+                      0%, 100% { transform: translateY(0px); }
+                      50% { transform: translateY(-6px); }
+                    }
+                  `}
+                </style>
               </Paper>
               
               {/* אלמנטים עדינים מסביב לתמונה */}
@@ -295,7 +329,7 @@ const Auth = () => {
                   left: -15,
                   width: 16,
                   height: 16,
-                  backgroundColor: blueGrey,
+                  backgroundColor: blueGrey[500],
                   opacity: 0.6,
                   borderRadius: '50%',
                   zIndex: 0,
@@ -329,13 +363,14 @@ const Auth = () => {
                   fontSize: { xs: '2rem', md: '2.5rem' },
                 }}
               >
-צבע בקליק              </Typography>
+                צבע בקליק
+              </Typography>
               
               <Typography
                 variant="body1"
                 sx={{
                   mb: 4,
-                  color: 'neutral.dark',
+                  color: 'text.secondary',
                   textAlign: 'center',
                   lineHeight: 1.6,
                   fontSize: '1.1rem',
@@ -347,21 +382,21 @@ const Auth = () => {
               <Box sx={{ display: 'flex', justifyContent: 'center', gap: 6, mb: 4 }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <CloudUploadIcon sx={{ fontSize: 32, color: theme.palette.accent.teal, mb: 1 }} />
-                  <Typography variant="body2" sx={{ color: 'neutral.main' }}>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     העלאת יצירות
                   </Typography>
                 </Box>
                 
                 <Box sx={{ textAlign: 'center' }}>
                   <ImageIcon sx={{ fontSize: 32, color: theme.palette.accent.blue, mb: 1 }} />
-                  <Typography variant="body2" sx={{ color: 'neutral.main' }}>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     גלריות אישיות
                   </Typography>
                 </Box>
                 
                 <Box sx={{ textAlign: 'center' }}>
                   <CloudDownloadIcon sx={{ fontSize: 32, color: theme.palette.accent.green, mb: 1 }} />
-                  <Typography variant="body2" sx={{ color: 'neutral.main' }}>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     הורדת יצירות
                   </Typography>
                 </Box>
