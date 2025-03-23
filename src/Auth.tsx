@@ -15,7 +15,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
-// Extend the Palette interface to include custom properties
 declare module '@mui/material/styles' {
   interface Palette {
     neutral: Palette['primary'];
@@ -42,7 +41,6 @@ declare module '@mui/material/styles' {
   }
 }
 
-// יצירת תמה עם רקע לבן וצבעים חזקים יותר
 const theme = createTheme({
   palette: {
     primary: {

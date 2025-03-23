@@ -6,11 +6,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-
-// Icons
 import CategoryIcon from '@mui/icons-material/Category';
 import BrushIcon from '@mui/icons-material/Brush';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 // Styled components for beautiful buttons
 const NavButton = styled(Button)(({  }) => ({
@@ -106,7 +105,7 @@ const NavigationMenu = () => {
     />
   );
 
-  return (
+  return (<>
     <Paper
       elevation={0}
       sx={{
@@ -219,7 +218,9 @@ const NavigationMenu = () => {
           </Box>
         ))}
       </Box>
+
     </Paper>
+</>
   );
 };
 
