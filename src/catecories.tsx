@@ -59,7 +59,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const CardOverlay = styled(Box)(({ theme }) => ({
+const CardOverlay = styled(Box)(({  }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
@@ -71,7 +71,7 @@ const CardOverlay = styled(Box)(({ theme }) => ({
   transition: 'opacity 0.3s ease',
 }));
 
-const CategoryImage = styled(CardMedia)(({ theme }) => ({
+const CategoryImage = styled(CardMedia)(({  }) => ({
   height: 260,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
@@ -81,7 +81,7 @@ const CategoryImage = styled(CardMedia)(({ theme }) => ({
 
 const CategoryPlaceholder = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'bgcolor'
-})<{ bgcolor: string }>(({ bgcolor, theme }) => ({
+})<{ bgcolor: string }>(({ bgcolor }) => ({
   height: 260,
   backgroundColor: bgcolor,
   display: 'flex',
@@ -128,7 +128,7 @@ const CategoryTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const CategoryDescription = styled(Typography)(({ theme }) => ({
+const CategoryDescription = styled(Typography)(({  }) => ({
   display: '-webkit-box',
   WebkitLineClamp: 2,
   WebkitBoxOrient: 'vertical',
