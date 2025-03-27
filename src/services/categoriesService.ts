@@ -5,13 +5,17 @@ const API_BASE_URL: string = 'https://server-drow.onrender.com';
 
 // ייצוא הטיפוסים כדי שאפשר יהיה להשתמש בהם מחוץ לקובץ
 export interface Category {
-  id: number;
-  name?: string;
-  description?: string;
-  imageUrl?: string;
-  color?: string;
-  // כל שדות נוספים שיש לקטגוריה
-  [key: string]: any;
+  description: any;
+  color: string;
+  ageGroup: string,
+
+  categoryId :string,
+  difficulty:string,
+  fileCategory:string
+  fileUrl :string , 
+  id: string
+  title:string
+
 }
 
 interface PendingPromise {
@@ -33,12 +37,12 @@ const createApiInstance = (): AxiosInstance => {
     config => {
       // השגת הטוקן מה-localStorage או מכל מקום אחר
       const token = localStorage.getItem('token');
-      
+
       // הוספת הטוקן לכותרת האימות, אם קיים
       if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
       }
-      
+
       return config;
     },
     error => {
@@ -85,20 +89,20 @@ class CategoryService {
     try {
       // שליחת הבקשה לשרת
       const response: AxiosResponse<Category[]> = await this.api.get('/api/categories');
-      
+
       // שמירת התוצאה במטמון
       this.categoriesCache = response.data;
-      
+
       // פתרון כל ההבטחות הממתינות עם הנתונים שהתקבלו
       this.pendingPromises.forEach(promise => promise.resolve(this.categoriesCache!));
       this.pendingPromises = [];
-      
+
       return this.categoriesCache;
     } catch (error) {
       // דחיית כל ההבטחות הממתינות עם השגיאה
       this.pendingPromises.forEach(promise => promise.reject(error));
       this.pendingPromises = [];
-      
+
       this._handleError(error as Error);
       throw error;
     } finally {
@@ -108,7 +112,6 @@ class CategoryService {
   }
 
   /**
-   * מאלץ רענון של המטמון ומביא את הקטגוריות מחדש מהשרת
    * @returns {Promise<Category[]>} מערך מעודכן של קטגוריות
    */
   async refreshCategories(): Promise<Category[]> {
@@ -126,12 +129,12 @@ class CategoryService {
   async addCategory(categoryData: Partial<Category>): Promise<Category> {
     try {
       const response: AxiosResponse<Category> = await this.api.post('/api/categories', categoryData);
-      
+
       // עדכון המטמון אם הוא קיים
       if (this.categoriesCache) {
         this.categoriesCache.push(response.data);
       }
-      
+
       return response.data;
     } catch (error) {
       this._handleError(error as Error);
@@ -144,43 +147,7 @@ class CategoryService {
    * @param {number} id - המזהה של הקטגוריה לעדכון
    * @param {Partial<Category>} categoryData - נתוני הקטגוריה המעודכנים
    * @returns {Promise<Category>} הקטגוריה המעודכנת
-   */
-  async updateCategory(id: number, categoryData: Partial<Category>): Promise<Category> {
-    try {
-      const response: AxiosResponse<Category> = await this.api.put(`/api/categories/${id}`, categoryData);
-      
-      // עדכון המטמון אם הוא קיים
-      if (this.categoriesCache) {
-        const index = this.categoriesCache.findIndex(cat => cat.id === id);
-        if (index !== -1) {
-          this.categoriesCache[index] = response.data;
-        }
-      }
-      
-      return response.data;
-    } catch (error) {
-      this._handleError(error as Error);
-      throw error;
-    }
-  }
 
-  /**
-   * @param {number} id - המזהה של הקטגוריה למחיקה
-   * @returns {Promise<void>}
-   */
-  async deleteCategory(id: number): Promise<void> {
-    try {
-      await this.api.delete(`/api/categories/${id}`);
-      
-      // עדכון המטמון אם הוא קיים
-      if (this.categoriesCache) {
-        this.categoriesCache = this.categoriesCache.filter(cat => cat.id !== id);
-      }
-    } catch (error) {
-      this._handleError(error as Error);
-      throw error;
-    }
-  }
 
   /**
    * טיפול בשגיאות API
@@ -190,18 +157,18 @@ class CategoryService {
   private _handleError(error: Error): void {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
-      
+
       if (axiosError.response) {
         // השרת הגיב עם קוד שגיאה
         console.error('שגיאת שרת:', axiosError.response.data);
-        
+
         // טיפול בשגיאות אימות
         if (axiosError.response.status === 401) {
           console.error('שגיאת אימות: אנא התחבר מחדש');
           // כאן אפשר להפעיל לוגיקה של ניתוב חזרה לדף ההתחברות
           // למשל: window.location.href = '/login';
         }
-        
+
         // טיפול בשגיאות הרשאה
         if (axiosError.response.status === 403) {
           console.error('אין לך הרשאות לבצע פעולה זו');

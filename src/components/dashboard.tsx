@@ -66,7 +66,7 @@ const NavigationMenu = () => {
     },
     {
       id: 'gallery',
-      label: 'היצירות שלי',
+      label: 'משלכם',
       path: '/my-paintings',
       icon: <BrushIcon />,
       color: '#00897b', // טורקיז
@@ -158,7 +158,6 @@ const NavigationMenu = () => {
           }
         }}
       >
-        נווט באמנות
       </Typography>
 
       <Box 

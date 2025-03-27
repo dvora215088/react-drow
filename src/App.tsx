@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Auth from './Auth';
+import Auth from './components/Auth';
 import { AuthProvider } from './context/AuthContext';
-import Login from './login';
-import Register from './register';
-import NavigationMenu from './dashboard';
-import CategoriesDisplay from './catecories';
+import Login from './components/login';
+import Register from './components/register';
+import NavigationMenu from './components/dashboard';
+import WorksheetPage from './components/WorkSheet/WorksheetPage';
+import CategoriesDisplay from './components/Categories/catecories';
 
 function App() {
   return (
@@ -16,7 +17,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<NavigationMenu />} />
         <Route path="/categories" element={<CategoriesDisplay></CategoriesDisplay>} />
+        <Route path="/my-paintings" element={<WorksheetPage/>} />
 
+        <Route 
+  path="/worksheets/:categoryId" 
+  element={<WorksheetPage />} 
+/>
 
         <Route path="/" element={<Auth />} />
       </Routes>

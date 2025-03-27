@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 // Material UI Imports
 import TextField from "@mui/material/TextField";
@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
+import Link from "@mui/material/Link";
 import Fade from "@mui/material/Fade";
 import Zoom from "@mui/material/Zoom";
 import Slide from "@mui/material/Slide";
@@ -24,13 +25,10 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import PaletteIcon from '@mui/icons-material/Palette';
-import BrushIcon from '@mui/icons-material/Brush';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import FormatPaintIcon from '@mui/icons-material/FormatPaint';
+import PersonIcon from '@mui/icons-material/Person';
 
 // Logo import
-import logo from "./assets/logo.png";
+import logo from "../assets/logo.png";
 
 // Custom styled components
 import { styled } from "@mui/material/styles";
@@ -72,14 +70,19 @@ const AnimatedTextField = styled(TextField)(({  }) => ({
   },
 }));
 
-const Login: React.FC = () => {
-  const { login, error } = useAuth();
+const Register: React.FC = () => {
+  const { register, error } = useAuth();
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [validationError, setValidationError] = useState("");
   animationComplete
   // Custom theme with blue color scheme
   const theme = createTheme({
@@ -173,14 +176,59 @@ const Login: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    // Check if passwords match whenever either password field changes
+    if (confirmPassword) {
+      setPasswordsMatch(password === confirmPassword);
+    } else {
+      setPasswordsMatch(true); // Don't show error when confirm password is empty
+    }
+  }, [password, confirmPassword]);
+
+  const validateForm = () => {
+    if (!firstName.trim()) {
+      setValidationError("נא להזין שם פרטי");
+      return false;
+    }
+    if (!lastName.trim()) {
+      setValidationError("נא להזין שם משפחה");
+      return false;
+    }
+    if (!email.trim()) {
+      setValidationError("נא להזין כתובת אימייל");
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setValidationError("נא להזין כתובת אימייל תקינה");
+      return false;
+    }
+    if (password.length < 6) {
+      setValidationError("הסיסמה חייבת להכיל לפחות 6 תווים");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      setValidationError("הסיסמאות אינן תואמות");
+      return false;
+    }
+    
+    setValidationError("");
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setLoading(true);
     try {
-      await login({ email, password });
-      navigate("/dashboard");
+      const userData = { firstName, lastName, email, password };
+      await register(userData);
+      navigate("/login");
     } catch (err) {
-      console.error("Login failed:", err);
+      console.error("Registration failed:", err);
     } finally {
       setLoading(false);
     }
@@ -207,40 +255,52 @@ const Login: React.FC = () => {
           p: 2,
         }}
       >
-        {/* רקע עם כתמי צבע */}
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.05, scale: 1 }}
-          transition={{ duration: 1.5 }}
-          sx={{
-            position: "absolute",
-            top: -100,
-            right: -100,
-            width: 600,
-            height: 600,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, #1976d2 0%, transparent 70%)",
-            zIndex: 0,
-          }}
-        />
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.07, scale: 1 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-          sx={{
-            position: "absolute",
-            bottom: -70,
-            left: -70,
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, #5c6bc0 0%, transparent 70%)",
-            zIndex: 0,
-            filter: "blur(2px)",
-          }}
-        />
+        {/* כתמי צבע מים - עדינים וצבעוניים על רקע לבן */}
+        {[...Array(10)].map((_, i) => (
+          <Box
+            key={`watercolor-${i}`}
+            component={motion.div}
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ 
+              scale: [0.95, 1.05, 0.95],
+              opacity: [0.04, 0.06, 0.04]
+            }}
+            transition={{ 
+              duration: 10,
+              repeat: Infinity,
+              delay: i * 0.3
+            }}
+            sx={{
+              position: "absolute",
+              height: 90 + i * 15,
+              width: 90 + i * 15,
+              borderRadius: "50%",
+              background: i % 10 === 0 
+                ? "radial-gradient(circle, rgba(244, 143, 177, 0.15) 0%, transparent 80%)" // ורוד עדין
+                : i % 10 === 1 
+                ? "radial-gradient(circle, rgba(144, 202, 249, 0.15) 0%, transparent 80%)" // כחול בהיר עדין
+                : i % 10 === 2
+                ? "radial-gradient(circle, rgba(128, 222, 234, 0.15) 0%, transparent 80%)" // טורקיז עדין
+                : i % 10 === 3
+                ? "radial-gradient(circle, rgba(255, 241, 118, 0.15) 0%, transparent 80%)" // צהוב עדין
+                : i % 10 === 4
+                ? "radial-gradient(circle, rgba(165, 214, 167, 0.15) 0%, transparent 80%)" // ירוק בהיר עדין
+                : i % 10 === 5
+                ? "radial-gradient(circle, rgba(206, 147, 216, 0.15) 0%, transparent 80%)" // סגול עדין
+                : i % 10 === 6
+                ? "radial-gradient(circle, rgba(255, 171, 145, 0.15) 0%, transparent 80%)" // כתום עדין
+                : i % 10 === 7
+                ? "radial-gradient(circle, rgba(159, 168, 218, 0.15) 0%, transparent 80%)" // אינדיגו עדין
+                : i % 10 === 8
+                ? "radial-gradient(circle, rgba(129, 212, 250, 0.15) 0%, transparent 80%)" // תכלת עדין
+                : "radial-gradient(circle, rgba(179, 157, 219, 0.15) 0%, transparent 80%)", // לבנדר עדין
+              top: `${5 + i * 9}%`,
+              left: i % 2 === 0 ? `${75 + i * 2}%` : `${3 + i * 3}%`,
+              filter: "blur(20px)",
+              zIndex: 0,
+            }}
+          />
+        ))}
         
         {/* אלמנטים אומנותיים מתנועעים עדינים וקלים */}
         {[...Array(6)].map((_, i) => (
@@ -285,7 +345,7 @@ const Login: React.FC = () => {
             }}
           />
         ))}
-        
+
         {/* קווי מכחול צבעוניים ועדינים */}
         {[...Array(8)].map((_, i) => (
           <Box
@@ -333,53 +393,6 @@ const Login: React.FC = () => {
           />
         ))}
 
-        {/* כתמי צבע מים - עדינים וצבעוניים על רקע לבן */}
-        {[...Array(10)].map((_, i) => (
-          <Box
-            key={`watercolor-${i}`}
-            component={motion.div}
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ 
-              scale: [0.95, 1.05, 0.95],
-              opacity: [0.04, 0.06, 0.04]
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              delay: i * 0.3
-            }}
-            sx={{
-              position: "absolute",
-              height: 90 + i * 15,
-              width: 90 + i * 15,
-              borderRadius: "50%",
-              background: i % 10 === 0 
-                ? "radial-gradient(circle, rgba(244, 143, 177, 0.15) 0%, transparent 80%)" // ורוד עדין
-                : i % 10 === 1 
-                ? "radial-gradient(circle, rgba(144, 202, 249, 0.15) 0%, transparent 80%)" // כחול בהיר עדין
-                : i % 10 === 2
-                ? "radial-gradient(circle, rgba(128, 222, 234, 0.15) 0%, transparent 80%)" // טורקיז עדין
-                : i % 10 === 3
-                ? "radial-gradient(circle, rgba(255, 241, 118, 0.15) 0%, transparent 80%)" // צהוב עדין
-                : i % 10 === 4
-                ? "radial-gradient(circle, rgba(165, 214, 167, 0.15) 0%, transparent 80%)" // ירוק בהיר עדין
-                : i % 10 === 5
-                ? "radial-gradient(circle, rgba(206, 147, 216, 0.15) 0%, transparent 80%)" // סגול עדין
-                : i % 10 === 6
-                ? "radial-gradient(circle, rgba(255, 171, 145, 0.15) 0%, transparent 80%)" // כתום עדין
-                : i % 10 === 7
-                ? "radial-gradient(circle, rgba(159, 168, 218, 0.15) 0%, transparent 80%)" // אינדיגו עדין
-                : i % 10 === 8
-                ? "radial-gradient(circle, rgba(129, 212, 250, 0.15) 0%, transparent 80%)" // תכלת עדין
-                : "radial-gradient(circle, rgba(179, 157, 219, 0.15) 0%, transparent 80%)", // לבנדר עדין
-              top: `${5 + i * 9}%`,
-              left: i % 2 === 0 ? `${75 + i * 2}%` : `${3 + i * 3}%`,
-              filter: "blur(20px)",
-              zIndex: 0,
-            }}
-          />
-        ))}
-
         <Fade in timeout={1000}>
           <Card
             component={motion.div}
@@ -387,7 +400,7 @@ const Login: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             sx={{
-              maxWidth: 420,
+              maxWidth: 450,
               width: "100%",
               boxShadow: "0 8px 30px rgba(0, 0, 0, 0.07)",
               overflow: "visible",
@@ -537,7 +550,7 @@ const Login: React.FC = () => {
             />
 
             <CardContent sx={{ pt: 5, pb: 4, px: 4, mt: 2 }}>
-              <Box sx={{ mb: 4, mt: 2, textAlign: "center" }}>
+              <Box sx={{ mb: 3, mt: 2, textAlign: "center" }}>
                 <Slide direction="down" in timeout={800}>
                   <Typography
                     variant="h5"
@@ -550,7 +563,7 @@ const Login: React.FC = () => {
                       dir: "rtl",
                     }}
                   >
-                    התחברות
+                    הרשמה
                   </Typography>
                 </Slide>
                 <Fade in timeout={1200}>
@@ -559,12 +572,12 @@ const Login: React.FC = () => {
                     color="text.secondary"
                     sx={{ textAlign: "center", dir: "rtl" }}
                   >
-                    ברוכים הבאים! אנא הזינו את פרטי הכניסה שלכם
+                    צור חשבון חדש כדי להתחיל
                   </Typography>
                 </Fade>
               </Box>
 
-              {error && (
+              {(error || validationError) && (
                 <Alert 
                   severity="error" 
                   sx={{ 
@@ -579,7 +592,7 @@ const Login: React.FC = () => {
                     }
                   }}
                 >
-                  {error}
+                  {validationError || error}
                 </Alert>
               )}
 
@@ -588,7 +601,52 @@ const Login: React.FC = () => {
                 onSubmit={handleSubmit} 
                 sx={{ dir: "rtl" }}
               >
-                <Fade in timeout={1000} style={{ transitionDelay: "200ms" }}>
+                {/* Row for first name and last name */}
+                <Box sx={{ display: "flex", gap: 2, mb: 1 }}>
+                  <Fade in timeout={1000} style={{ transitionDelay: "100ms" }}>
+                    <Box sx={{ flex: 1 }}>
+                      <AnimatedTextField
+                        fullWidth
+                        label="שם פרטי"
+                        variant="outlined"
+                        required
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon color="primary" />
+                            </InputAdornment>
+                          ),
+                        }}
+                        sx={{ direction: "rtl" }}
+                      />
+                    </Box>
+                  </Fade>
+
+                  <Fade in timeout={1000} style={{ transitionDelay: "200ms" }}>
+                    <Box sx={{ flex: 1 }}>
+                      <AnimatedTextField
+                        fullWidth
+                        label="שם משפחה"
+                        variant="outlined"
+                        required
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon color="primary" />
+                            </InputAdornment>
+                          ),
+                        }}
+                        sx={{ direction: "rtl" }}
+                      />
+                    </Box>
+                  </Fade>
+                </Box>
+
+                <Fade in timeout={1000} style={{ transitionDelay: "300ms" }}>
                   <Box>
                     <AnimatedTextField
                       fullWidth
@@ -606,7 +664,7 @@ const Login: React.FC = () => {
                           </InputAdornment>
                         ),
                       }}
-                      sx={{ mb: 2.5, direction: "rtl" }}
+                      sx={{ mb: 2, direction: "rtl" }}
                     />
                   </Box>
                 </Fade>
@@ -646,12 +704,35 @@ const Login: React.FC = () => {
                           </InputAdornment>
                         ),
                       }}
-                      sx={{ mb: 1, direction: "rtl" }}
+                      sx={{ mb: 2, direction: "rtl" }}
                     />
                   </Box>
                 </Fade>
 
-                
+                <Fade in timeout={1000} style={{ transitionDelay: "500ms" }}>
+                  <Box>
+                    <AnimatedTextField
+                      fullWidth
+                      label="אימות סיסמה"
+                      variant="outlined"
+                      type={showPassword ? "text" : "password"}
+                      margin="normal"
+                      required
+                      error={!passwordsMatch}
+                      helperText={!passwordsMatch ? "הסיסמאות אינן תואמות" : ""}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon color="primary" />
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{ mb: 3, direction: "rtl" }}
+                    />
+                  </Box>
+                </Fade>
 
                 <Fade in timeout={1000} style={{ transitionDelay: "600ms" }}>
                   <Box>
@@ -664,7 +745,7 @@ const Login: React.FC = () => {
                       disabled={loading}
                       sx={{
                         py: 1.5,
-                        mb: 2.5,
+                        mb: 2,
                         background: "linear-gradient(45deg, #1976d2 30%, #42a5f5 90%)",
                         boxShadow: "0 6px 20px rgba(25, 118, 210, 0.3)",
                         borderRadius: 3,
@@ -680,58 +761,61 @@ const Login: React.FC = () => {
                       {loading ? (
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                           <CircularProgress size={20} color="inherit" sx={{ mr: 1 }} />
-                          מתחבר...
+                          מבצע הרשמה...
                         </Box>
                       ) : (
-                        "התחבר"
+                        "הירשם"
                       )}
                     </AnimatedButton>
                   </Box>
                 </Fade>
 
-                {/* אלמנטים אומנותיים בתחתית הטופס */}
-                <Box sx={{ mt: 3, display: "flex", justifyContent: "center", opacity: 0.7 }}>
-                  <Box
-                    component={motion.div}
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-                    sx={{ mx: 1 }}
-                  >
-                    <PaletteIcon color="secondary" fontSize="small" />
+                <Fade in timeout={1000} style={{ transitionDelay: "700ms" }}>
+                  <Box sx={{ textAlign: "center", mt: 2 }}>
+                    <Typography 
+                      variant="body2" 
+                      component="span"
+                      sx={{ color: "text.secondary", dir: "rtl" }}
+                    >
+                      כבר יש לך חשבון?{" "}
+                    </Typography>
+                    <Link 
+                      href="/login" 
+                      underline="none"
+                      sx={{
+                        color: "primary.main",
+                        fontWeight: 500,
+                        position: "relative",
+                        transition: "all 0.3s",
+                        "&:hover": {
+                          color: "primary.dark",
+                          "&::after": {
+                            width: "100%",
+                          },
+                        },
+                        "&::after": {
+                          content: '""',
+                          position: "absolute",
+                          bottom: -1,
+                          left: 0,
+                          width: 0,
+                          height: 1,
+                          backgroundColor: "primary.dark",
+                          transition: "width 0.3s",
+                        },
+                      }}
+                    >
+                     Copyהתחבר
+</Link>
                   </Box>
-                  <Box
-                    component={motion.div}
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
-                    sx={{ mx: 1 }}
-                  >
-                    <BrushIcon color="primary" fontSize="small" />
-                  </Box>
-                  <Box
-                    component={motion.div}
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 18, ease: "linear" }}
-                    sx={{ mx: 1 }}
-                  >
-                    <ColorLensIcon color="secondary" fontSize="small" />
-                  </Box>
-                  <Box
-                    component={motion.div}
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 14, ease: "linear" }}
-                    sx={{ mx: 1 }}
-                  >
-                    <FormatPaintIcon color="primary" fontSize="small" />
-                  </Box>
-                </Box>
+                </Fade>
               </Box>
             </CardContent>
           </Card>
         </Fade>
-        
       </Box>
     </ThemeProvider>
   );
 };
 
-export default Login;
+export default Register;
