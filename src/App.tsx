@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Auth from './components/Auth';
+import Auth from './components/HomePage/Auth';
 import { AuthProvider } from './context/AuthContext';
-import Login from './components/login';
-import Register from './components/register';
-import NavigationMenu from './components/dashboard';
+import Login from './components/Login and Register/login';
+import Register from './components/Login and Register/register';
+import NavigationMenu from './components/NavigationMenu';
 import WorksheetPage from './components/WorkSheet/WorksheetPage';
 import CategoriesDisplay from './components/Categories/catecories';
 
@@ -26,6 +26,7 @@ function App() {
 
         <Route path="/" element={<Auth />} />
       </Routes>
+
     </AuthProvider>
   );
 }

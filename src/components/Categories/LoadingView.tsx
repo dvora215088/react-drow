@@ -8,14 +8,14 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { CATEGORY_COLORS } from './COLORS';
+import { COLORS } from '../../COLORS';
 
 // Color constants from our palette
-const PRIMARY_BLUE = CATEGORY_COLORS[2]; // darker blue
-const MEDIUM_BLUE = CATEGORY_COLORS[1]; // medium blue
-const LIGHT_GREEN = CATEGORY_COLORS[3]; // light green
-const LIGHT_GRAY = CATEGORY_COLORS[6]; // light gray
-const MEDIUM_GRAY = CATEGORY_COLORS[7]; // medium gray
+const PRIMARY_BLUE = COLORS[2]; // darker blue
+const MEDIUM_BLUE = COLORS[1]; // medium blue
+const LIGHT_GREEN = COLORS[3]; // light green
+const LIGHT_GRAY = COLORS[6]; // light gray
+const MEDIUM_GRAY = COLORS[7]; // medium gray
 
 // Styled components using our palette
 const LoadingContainer = styled(Box)(() => ({

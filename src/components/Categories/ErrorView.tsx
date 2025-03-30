@@ -9,14 +9,14 @@ import {
 import { styled } from '@mui/material/styles';
 import PaletteIcon from '@mui/icons-material/Palette';
 import CategoryIcon from '@mui/icons-material/Category';
-import { CATEGORY_COLORS } from './COLORS';
+import { COLORS } from '../../COLORS';
 
 // Constants from our color palette
-const PRIMARY_BLUE = CATEGORY_COLORS[2]; // darker blue
-const LIGHT_BLUE = CATEGORY_COLORS[0]; // light blue
-const MEDIUM_GREEN = CATEGORY_COLORS[4]; // medium green
-const LIGHT_GRAY = CATEGORY_COLORS[6]; // light gray
-const MEDIUM_GRAY = CATEGORY_COLORS[7]; // medium gray
+const PRIMARY_BLUE = COLORS[2]; // darker blue
+const LIGHT_BLUE = COLORS[0]; // light blue
+const MEDIUM_GREEN = COLORS[4]; // medium green
+const LIGHT_GRAY = COLORS[6]; // light gray
+const MEDIUM_GRAY = COLORS[7]; // medium gray
 
 // Styled components with our palette
 const EmptyPaper = styled(Paper)(() => ({
@@ -53,7 +53,7 @@ const CreateButton = styled(Button)(() => ({
   color: '#FFFFFF',
   boxShadow: `0 6px 15px ${alpha(PRIMARY_BLUE, 0.25)}`,
   '&:hover': {
-    backgroundColor: CATEGORY_COLORS[1], // medium blue
+    backgroundColor:COLORS[1], // medium blue
     transform: 'translateY(-3px)',
     boxShadow: `0 10px 20px ${alpha(PRIMARY_BLUE, 0.3)}`
   },

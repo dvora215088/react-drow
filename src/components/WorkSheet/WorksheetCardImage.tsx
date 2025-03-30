@@ -1,7 +1,7 @@
 // WorksheetCardImage.tsx
 import React from 'react';
 import { Box } from '@mui/material';
-import { CATEGORY_COLORS } from '../Categories/COLORS';
+import { COLORS } from '../../COLORS';
 import { WorksheetCardImageProps } from '../../types/Worksheet';
 
 const WorksheetCardImage: React.FC<WorksheetCardImageProps> = ({ 
@@ -47,7 +47,7 @@ const WorksheetCardImage: React.FC<WorksheetCardImageProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            bgcolor: CATEGORY_COLORS[9] // Using pale blue as background
+            bgcolor: COLORS[9] // Using pale blue as background
           }}
         >
           <img 

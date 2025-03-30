@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import WorksheetDownloadButton from './WorksheetDownloadButton';
 import WorksheetPrintButton from './WorksheetPrintButton';
 import { WorksheetCardActionsProps } from '../../types/Worksheet';
-import { CATEGORY_COLORS } from '../Categories/COLORS';
+import { COLORS } from '../../COLORS';
 
 
 const WorksheetCardActions: React.FC<WorksheetCardActionsProps> = ({ 
@@ -14,7 +14,7 @@ const WorksheetCardActions: React.FC<WorksheetCardActionsProps> = ({
     <Box sx={{ display: 'flex', gap: 1 }}>
       <Box 
         sx={{ 
-          bgcolor: `${CATEGORY_COLORS[6]}50`, // אפור בהיר עם שקיפות
+          bgcolor: `${COLORS[6]}50`, // אפור בהיר עם שקיפות
           borderRadius: '4px',
           overflow: 'hidden',
           display: 'flex'

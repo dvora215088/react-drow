@@ -5,7 +5,7 @@ import WorksheetCardImage from './WorksheetCardImage';
 import WorksheetCardOverlay from './WorksheetCardOverlay';
 import FavoriteButton from './FavoriteButton';
 import { WorksheetCardProps } from '../../types/Worksheet';
-import { CATEGORY_COLORS } from '../Categories/COLORS';
+import { COLORS } from '../../COLORS';
 
 const WorksheetCard: React.FC<WorksheetCardProps> = ({ 
   worksheet, 
@@ -45,7 +45,7 @@ const WorksheetCard: React.FC<WorksheetCardProps> = ({
           borderRadius: '8px',
           overflow: 'hidden',
           boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-          bgcolor: CATEGORY_COLORS[6], // Light gray color
+          bgcolor: COLORS[6], // Light gray color
           transition: 'all 0.3s ease'
         }}
       >

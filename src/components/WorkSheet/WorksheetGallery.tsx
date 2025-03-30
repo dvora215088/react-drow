@@ -7,6 +7,7 @@ import WorksheetCard from './WorksheetCard';
 import WorksheetGalleryHeader from './WorksheetGalleryHeader';
 import { Worksheet, WorksheetGalleryProps } from '../../types/Worksheet';
 import worksheetServiceInstance from '../../services/worksheetService';
+import NavigationMenu from '../NavigationMenu';
 
 const WorksheetGallery: React.FC<WorksheetGalleryProps> = ({ categoryId }) => {
   const [worksheets, setWorksheets] = useState<Worksheet[]>([]);
@@ -23,7 +24,7 @@ const WorksheetGallery: React.FC<WorksheetGalleryProps> = ({ categoryId }) => {
     const fetchWorksheets = async () => {
       try {
         setLoading(true);
-        const data = await worksheetServiceInstance.getWorksheetsByCategory(parseInt(categoryId));
+        const data = await worksheetServiceInstance.getWorksheetsByCategory((categoryId));
         setWorksheets(data);
         
         // Only initialize image loading state on first render
@@ -82,7 +83,7 @@ const WorksheetGallery: React.FC<WorksheetGalleryProps> = ({ categoryId }) => {
     };
 
     fetchWorksheets();
-  }, [categoryId]);
+  }, []);
 
   // Function to toggle favorite
   const toggleFavorite = (id: number) => {
@@ -144,6 +145,7 @@ const WorksheetGallery: React.FC<WorksheetGalleryProps> = ({ categoryId }) => {
   }
 
   return (
+    <><NavigationMenu></NavigationMenu>
     <ThemeProvider theme={theme}>
       <>
         <WorksheetGalleryHeader categoryId={parseInt(categoryId)} />
@@ -177,7 +179,7 @@ const WorksheetGallery: React.FC<WorksheetGalleryProps> = ({ categoryId }) => {
           />
         </Container>
       </>
-    </ThemeProvider>
+    </ThemeProvider></>
   );
 };
 

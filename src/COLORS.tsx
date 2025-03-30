@@ -1,7 +1,7 @@
 // Constants file with colors matching the blue, green, and gray tones from the image
 
 // Blue, green and gray color palette for categories
-export const CATEGORY_COLORS = [
+export const COLORS = [
     '#82B1D9', // light blue (like the "2" in the image)
     '#5598C5', // medium blue
     '#2A71A7', // darker blue
@@ -17,4 +17,4 @@ export const CATEGORY_COLORS = [
     '#53B57D', // bright green
     '#C0C2C4', // silver gray
     '#617D97'  // blue-gray
-  ];
+];

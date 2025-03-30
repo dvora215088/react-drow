@@ -23,7 +23,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoIcon from '@mui/icons-material/Info';
-import worksheetServiceInstance from '../services/worksheetService';
+import worksheetServiceInstance from '../../services/worksheetService';
 
 // Slide transition for dialog
 const Transition = React.forwardRef(function Transition(
@@ -112,46 +112,49 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 360, mx: 'auto' }}>
-      {/* Search field */}
+    <Box 
+      sx={{ 
+        width: '100%', 
+        maxWidth: 300, 
+        // מיקום רגיל בזרימת הדף (זזה עם תוכן הדף)
+        // התאמה לצד ימין בלבד עם מיקום נמוך יותר
+        float: 'right',
+        mr: 2,
+        mb: 4,
+        mt: 10, // מרווח נוסף מלמעלה
+      }}
+    >
+      {/* Search field - רק מסגרת דקיקה */}
       <Paper 
-        elevation={2} 
+        elevation={0} // ללא צל בכלל
         sx={{ 
-          p: 2, 
+          p: 1.5, 
           mb: 1, 
-          borderRadius: 2,
-          boxShadow: '0 2px 10px rgba(0,0,0,0.08)'
+          borderRadius: 1,
+          backgroundColor: 'transparent', // רקע שקוף להטמעה טובה יותר בדף
+          border: 'none', // הסרת המסגרת לחלוטין
+          boxShadow: 'none',
         }}
       >
-        <Typography 
-          variant="h6" 
-          component="h2" 
-          gutterBottom 
-          dir="rtl"
-          sx={{ fontSize: '1.1rem', fontWeight: 500 }}
-        >
-          חיפוש דפי עבודה
-        </Typography>
-        
         <TextField
           fullWidth
           dir="rtl"
           placeholder="הקלד שם דף עבודה..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          variant="outlined"
+          variant="standard" // סגנון מינימליסטי יותר
           size="small"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 {loading ? (
-                  <CircularProgress size={20} color="inherit" />
+                  <CircularProgress size={16} color="inherit" />
                 ) : (
-                  <SearchIcon color="primary" />
+                  <SearchIcon fontSize="small" color="inherit" />
                 )}
               </InputAdornment>
             ),
-            sx: { borderRadius: 1 }
+            sx: { borderRadius: 0 }
           }}
         />
         
@@ -160,9 +163,9 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
             variant="caption" 
             color="text.secondary" 
             dir="rtl"
-            sx={{ display: 'block', mt: 1, textAlign: 'right' }}
+            sx={{ display: 'block', mt: 1, textAlign: 'right', fontSize: '0.7rem' }}
           >
-            הקלד לפחות 2 תווים כדי להתחיל בחיפוש
+            הקלד לפחות 2 תווים
           </Typography>
         )}
       </Paper>
@@ -170,12 +173,15 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
       {/* Results list */}
       {worksheets.length > 0 && (
         <Paper 
-          elevation={1} 
+          elevation={0}
           sx={{ 
             mt: 1, 
-            maxHeight: 400, 
+            maxHeight: 300, 
             overflow: 'auto',
-            borderRadius: 2
+            borderRadius: 1,
+            backgroundColor: 'white',
+            border: 'none', // הסרת המסגרת לחלוטין
+            boxShadow: 'none',
           }}
         >
           <List dense>
@@ -186,18 +192,18 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
                   alignItems="flex-start"
                   onClick={() => handleWorksheetClick(worksheet)}
                   sx={{ 
-                    py: 1.5,
+                    py: 1,
                     transition: 'all 0.2s',
-                    '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                    '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.03)' },
                     cursor: 'pointer'
                   }}
                 >
                   <ListItemText
                     primary={
                       <Typography 
-                        variant="body1" 
+                        variant="body2" 
                         dir="rtl" 
-                        sx={{ fontWeight: 500 }}
+                        sx={{ fontWeight: 500, fontSize: '0.85rem' }}
                       >
                         {worksheet.title}
                       </Typography>
@@ -207,14 +213,14 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
                         variant="body2"
                         color="text.secondary"
                         dir="rtl"
-                        sx={{ mt: 0.5, fontSize: '0.75rem' }}
+                        sx={{ mt: 0.5, fontSize: '0.7rem' }}
                       >
                         {worksheet.categoryName && `קטגוריה: ${worksheet.categoryName}`}
                       </Typography>
                     }
                   />
-                  <IconButton edge="end" size="small" onClick={() => handleWorksheetClick(worksheet)}>
-                    <InfoIcon fontSize="small" />
+                  <IconButton edge="end" size="small" sx={{ padding: 0.5 }} onClick={() => handleWorksheetClick(worksheet)}>
+                    <InfoIcon fontSize="small" sx={{ fontSize: '1rem' }} />
                   </IconButton>
                 </ListItem>
                 <Divider component="li" />
@@ -228,15 +234,17 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
       {searchTerm.length >= 2 && worksheets.length === 0 && !loading && (
         <Paper 
           sx={{ 
-            p: 2, 
+            p: 1, 
             mt: 1, 
             textAlign: 'center',
-            borderRadius: 2,
-            bgcolor: '#f5f5f5'
+            borderRadius: 1,
+            backgroundColor: 'white',
+            border: 'none', // הסרת המסגרת לחלוטין
+            boxShadow: 'none',
           }}
         >
-          <Typography variant="body2" color="text.secondary" dir="rtl">
-            לא נמצאו דפי עבודה התואמים לחיפוש
+          <Typography variant="body2" color="text.secondary" dir="rtl" sx={{ fontSize: '0.8rem' }}>
+            לא נמצאו דפי עבודה מתאימים
           </Typography>
         </Paper>
       )}
@@ -253,7 +261,7 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
       >
         {selectedWorksheet && (
           <>
-            <DialogTitle dir="rtl" sx={{ pr: 6 }}>
+            <DialogTitle dir="rtl" sx={{ pr: 6, bgcolor: 'white' }}>
               {selectedWorksheet.title}
               <IconButton
                 aria-label="close"
@@ -268,7 +276,7 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
                 <CloseIcon />
               </IconButton>
             </DialogTitle>
-            <DialogContent dividers>
+            <DialogContent dividers sx={{ bgcolor: 'white' }}>
               <Box dir="rtl">
                 <Typography variant="body1" gutterBottom>
                   מידע על דף העבודה:
@@ -305,7 +313,7 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
                 </Box>
               </Box>
             </DialogContent>
-            <DialogActions>
+            <DialogActions sx={{ bgcolor: 'white' }}>
               <Button onClick={handleCloseDialog}>סגור</Button>
               <Button 
                 onClick={() => handleDownload(selectedWorksheet.id)} 

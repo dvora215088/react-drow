@@ -8,13 +8,13 @@ import { styled } from '@mui/material/styles';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import StarIcon from '@mui/icons-material/Star';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { CATEGORY_COLORS } from './COLORS';
+import { COLORS } from '../../COLORS';
 
 // Color constants from our palette
-const PRIMARY_BLUE = CATEGORY_COLORS[2]; // darker blue
-const MEDIUM_GREEN = CATEGORY_COLORS[4]; // medium green
-const LIGHT_GREEN = CATEGORY_COLORS[3]; // light green
-const DARK_GRAY = CATEGORY_COLORS[8]; // darker gray
+const PRIMARY_BLUE = COLORS[2]; // darker blue
+const MEDIUM_GREEN = COLORS[4]; // medium green
+const LIGHT_GREEN = COLORS[3]; // light green
+const DARK_GRAY = COLORS[8]; // darker gray
 
 // Styled components with our palette
 const HeaderContainer = styled(Box)(() => ({
@@ -22,6 +22,7 @@ const HeaderContainer = styled(Box)(() => ({
   marginBottom: 64, // theme.spacing(8)
   textAlign: 'center',
   padding: '32px 16px', // theme.spacing(4, 2)
+  backgroundColor: 'white', // Added white background
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -103,6 +104,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   subtitle}) => {
   return (
     <HeaderContainer>
+
       {/* <IconContainer>
         <ColorLensIcon sx={{ 
           fontSize: 40, 

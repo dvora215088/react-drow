@@ -51,6 +51,7 @@ const EmptyCategoriesView: React.FC<EmptyCategoriesViewProps> = ({
         }
       }}
     >
+
       <ImagePlaceholder>
         <PaletteIcon sx={{ 
           fontSize: 80, 
@@ -69,26 +70,7 @@ const EmptyCategoriesView: React.FC<EmptyCategoriesViewProps> = ({
         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 500, mx: 'auto', mb: 3 }}>
           הקטגוריות שיתווספו יופיעו כאן בעיצוב מרהיב
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary"
-          size="large"
-          startIcon={<CategoryIcon />}
-          onClick={onCreateNewCategory}
-          sx={{ 
-            borderRadius: 3, 
-            px: 3, 
-            py: 1.2,
-            boxShadow: '0 6px 15px rgba(0,0,0,0.1)',
-            '&:hover': {
-              transform: 'translateY(-3px)',
-              boxShadow: '0 10px 20px rgba(0,0,0,0.15)'
-            },
-            transition: 'all 0.3s ease'
-          }}
-        >
-          צור קטגוריה חדשה
-        </Button>
+       
       </ImagePlaceholder>
     </Paper>
   );

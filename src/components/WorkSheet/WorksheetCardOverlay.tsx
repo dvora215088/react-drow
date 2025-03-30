@@ -10,7 +10,7 @@ import {
 import WorksheetCardActions from './WorksheetCardActions';
 import { getDifficultyColor } from './Theme';
 import { WorksheetCardOverlayProps } from '../../types/Worksheet';
-import { CATEGORY_COLORS } from '../Categories/COLORS';
+import { COLORS } from '../../COLORS';
 
 const WorksheetCardOverlay: React.FC<WorksheetCardOverlayProps> = ({ 
   worksheet, 
@@ -61,7 +61,7 @@ const WorksheetCardOverlay: React.FC<WorksheetCardOverlayProps> = ({
           value={rating || 0}
           precision={0.5}
           max={5}
-          icon={<StarIcon sx={{ color: CATEGORY_COLORS[12], transition: 'all 0.3s ease' }} fontSize="small" />}
+          icon={<StarIcon sx={{ color: COLORS[12], transition: 'all 0.3s ease' }} fontSize="small" />}
           emptyIcon={<StarBorderIcon sx={{ 
             color: 'rgba(0,0,0,0.3)', 
             transition: 'all 0.3s ease',
@@ -92,10 +92,10 @@ const WorksheetCardOverlay: React.FC<WorksheetCardOverlayProps> = ({
           sx={{ 
             borderRadius: 1, 
             fontSize: '0.75rem',
-            bgcolor: CATEGORY_COLORS[9] + '50', // Pale blue with transparency
+            bgcolor: COLORS[9] + '50', // Pale blue with transparency
             color: 'black',
             '& .MuiChip-icon': {
-              color: CATEGORY_COLORS[2]
+              color: COLORS[2]
             }
           }}
         />

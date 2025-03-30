@@ -5,7 +5,7 @@ function WorksheetPage() {
   const { categoryId } = useParams<{ categoryId?: string }>(); // מוודאים שזו מחרוזת
   
   // ממירים למספר עם ברירת מחדל
-  const validCategoryId = parseInt(categoryId || "1");
+  const validCategoryId = categoryId || "1";
 
   return (
     <div>

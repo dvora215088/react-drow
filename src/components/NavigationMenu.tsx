@@ -115,16 +115,12 @@ const NavigationMenu = () => {
         overflow: 'hidden',
         backgroundColor: 'white',
         border: '1px solid rgba(0, 0, 0, 0.06)',
-        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.05)',
+        // הסרת אפקט הצל
+        boxShadow: 'none',
+        // הסרת הגרדיאנט העליון
         '&::before': {
           content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          background: 'linear-gradient(90deg, #1976d2, #00897b, #e91e63)',
-          opacity: 0.9,
+          display: 'none', // מבטל את הגרדיאנט העליון
         }
       }}
     >

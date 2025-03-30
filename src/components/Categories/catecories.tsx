@@ -4,7 +4,6 @@ import {
   Box, 
   Container, 
   Grid, 
-
   Grow,
   useTheme,
   alpha
@@ -15,8 +14,7 @@ import ErrorView from './ErrorView';
 import PageHeader from './PageHeader';
 import EmptyCategoriesView from './EmptyCategoriesView';
 import CategoryCard from './CategoryCard';
-
-// Import constants
+import NavigationMenu from '../NavigationMenu';
 
 const CategoriesDisplay: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -25,12 +23,8 @@ const CategoriesDisplay: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  // Page background with gradient
-  const pageBackground = `
-    linear-gradient(135deg, ${alpha(theme.palette.primary.light, 0.05)} 0%, 
-    ${alpha(theme.palette.background.default, 0.02)} 50%,
-    ${alpha(theme.palette.secondary.light, 0.05)} 100%)
-  `;
+  // Changed background to white
+  const pageBackground = 'white';
   
   // Fetch categories on component mount
   useEffect(() => {
@@ -50,8 +44,6 @@ const CategoriesDisplay: React.FC = () => {
 
     fetchCategories();
   }, []);
-
-
 
   // Function to navigate to worksheets page
   const navigateToWorksheets = (categoryId: number | string) => {
@@ -73,49 +65,44 @@ const CategoriesDisplay: React.FC = () => {
   }
 
   return (
-    <Box sx={{ 
-      background: pageBackground,
-      minHeight: '100vh',
-      pt: 4,
-      pb: 10,
-    }}>
-      <Container maxWidth="lg" sx={{ direction: 'rtl' }}>
-        <PageHeader 
-          title="הקטגוריות שלנו"
-          subtitle="סייר בקטגוריות המרהיבות שלנו ומצא השראה לציורים הבאים שלך"
-        />
-        
-        {categories.length === 0 ? (
-          <EmptyCategoriesView onCreateNewCategory={handleCreateCategory} />
-        ) : (
-          <>
-            <Grid container spacing={4}>
-              {categories.map((category, index) => {
-                return (
-                  <Grid item xs={12} sm={6} md={4} key={category.id}>
-                    <Grow 
-                      in={true} 
-                      timeout={(index + 1) * 200}
-                      style={{ transformOrigin: '50% 50%' }}
-                    >
-                      <div> {/* Div wrapper needed for Grow */}
-                        <CategoryCard 
-                          category={category}
-                          onClick={() => navigateToWorksheets(category.id)}
-                        />
-                      </div>
-                    </Grow>
-                  </Grid>
-                );
-              })}
-            </Grid>
-
-           
-            
-          </>
-        )}
-      </Container>
-    </Box>
+    <>
+      <NavigationMenu></NavigationMenu>
+      <Box sx={{ 
+        background: pageBackground,
+        minHeight: '100vh',
+        pt: 4,
+        pb: 10,
+      }}>
+        <Container maxWidth="lg" sx={{ direction: 'rtl' }}>
+          {categories.length === 0 ? (
+            <EmptyCategoriesView onCreateNewCategory={handleCreateCategory} />
+          ) : (
+            <>
+              <Grid container spacing={4}>
+                {categories.map((category, index) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={4} key={category.id}>
+                      <Grow 
+                        in={true} 
+                        timeout={(index + 1) * 200}
+                        style={{ transformOrigin: '50% 50%' }}
+                      >
+                        <div> {/* Div wrapper needed for Grow */}
+                          <CategoryCard 
+                            category={category}
+                            onClick={() => navigateToWorksheets(category.id)}
+                          />
+                        </div>
+                      </Grow>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </>
+          )}
+        </Container>
+      </Box>
+    </>
   );
 };
 
