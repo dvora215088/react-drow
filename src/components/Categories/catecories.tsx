@@ -4,9 +4,7 @@ import {
   Box, 
   Container, 
   Grid, 
-  Grow,
-  useTheme,
-  alpha
+  Grow
 } from '@mui/material';
 import categoryService, { Category } from '../../services/categoriesService';
 import LoadingView from './LoadingView';
@@ -19,7 +17,6 @@ const CategoriesDisplay: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const theme = useTheme();
   const navigate = useNavigate();
 
   // Changed background to white

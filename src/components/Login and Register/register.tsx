@@ -9,7 +9,7 @@ import BackgroundElements from "./BackgroundElements";
 
 const Register: React.FC = () => {
   const { register, error } = useAuth();
-  const [animationComplete, setAnimationComplete] = useState(false);
+  const [, setAnimationComplete] = useState(false);
 
   // ערכת עיצוב עם הצבעים ישירות מהCOLORS
   const theme = createTheme({

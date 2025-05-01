@@ -1,4 +1,3 @@
-"use client"
 
 import { useEffect, useRef, useState } from "react"
 import { Card, CardActionArea, CardContent, CardMedia, Typography, alpha, Box } from "@mui/material"
@@ -122,7 +121,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   const secondaryColor = getColor(index + 1)
   const [categoryWorksheets, setCategoryWorksheets] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   const hasEffectRun = useRef(false);
 

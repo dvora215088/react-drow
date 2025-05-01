@@ -27,7 +27,6 @@ interface EmptyCategoriesViewProps {
 }
 
 const EmptyCategoriesView: React.FC<EmptyCategoriesViewProps> = ({ 
-  onCreateNewCategory 
 }) => {
   const theme = useTheme();
   
