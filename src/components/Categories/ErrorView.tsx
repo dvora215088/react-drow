@@ -15,7 +15,6 @@ import { COLORS } from '../../COLORS';
 const PRIMARY_BLUE = COLORS[2]; // darker blue
 const LIGHT_BLUE = COLORS[0]; // light blue
 const MEDIUM_GREEN = COLORS[4]; // medium green
-const LIGHT_GRAY = COLORS[6]; // light gray
 const MEDIUM_GRAY = COLORS[7]; // medium gray
 
 // Styled components with our palette

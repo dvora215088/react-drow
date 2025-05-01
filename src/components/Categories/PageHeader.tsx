@@ -1,13 +1,10 @@
 import React from 'react';
 import { 
   Box, 
-  Typography, 
-  Chip
+  Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import StarIcon from '@mui/icons-material/Star';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
 import { COLORS } from '../../COLORS';
 
 // Color constants from our palette
@@ -36,11 +33,7 @@ const HeaderContainer = styled(Box)(() => ({
   }
 }));
 
-const IconContainer = styled(Box)(() => ({
-  marginBottom: 16,
-  display: 'flex',
-  justifyContent: 'center',
-}));
+
 
 const GradientTitle = styled(Typography)(() => ({
   fontWeight: 800,
@@ -61,37 +54,8 @@ const Subtitle = styled(Typography)(() => ({
   color: DARK_GRAY,
 }));
 
-const ChipsContainer = styled(Box)(() => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: 8,
-  justifyContent: 'center',
-  marginTop: 24,
-}));
 
-const PrimaryChip = styled(Chip)(() => ({
-  borderRadius: 32,
-  fontWeight: 500,
-  paddingLeft: 8,
-  paddingRight: 8,
-  color: PRIMARY_BLUE,
-  borderColor: PRIMARY_BLUE,
-  '&:hover': {
-    backgroundColor: `${PRIMARY_BLUE}10`,
-  }
-}));
 
-const SecondaryChip = styled(Chip)(() => ({
-  borderRadius: 32,
-  fontWeight: 500,
-  paddingLeft: 8,
-  paddingRight: 8,
-  color: MEDIUM_GREEN,
-  borderColor: MEDIUM_GREEN,
-  '&:hover': {
-    backgroundColor: `${MEDIUM_GREEN}10`,
-  }
-}));
 
 interface PageHeaderProps {
   title: string;
