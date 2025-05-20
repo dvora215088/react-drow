@@ -1,4 +1,3 @@
-
 import  { JSX, useState } from 'react';
 import { 
   Box, 
@@ -25,10 +24,6 @@ import {
   PhotoCamera as PhotoCameraIcon, 
   Download as DownloadIcon, 
   Brush as BrushIcon,
-  History as HistoryIcon,
-  Favorite as FavoriteIcon,
-  FavoriteBorder as FavoriteBorderIcon,
-  Share as ShareIcon,
   Menu as MenuIcon
 } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -248,7 +243,6 @@ export default function AiImageGenerator() {
   const [error, setError] = useState<string>('');
   const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
-  const [favorite, setFavorite] = useState<boolean>(false);
   
 
   // דוגמאות השראה לקידום יצירתיות
@@ -319,25 +313,6 @@ export default function AiImageGenerator() {
     setSnackbarOpen(true);
   };
 
-  const toggleFavorite = (): void => {
-    setFavorite(!favorite);
-    setSnackbarMessage(favorite ? 'הוסר מהמועדפים' : 'נוסף למועדפים');
-    setSnackbarOpen(true);
-  };
-
-  const shareImage = (): void => {
-    if (navigator.share && imageUrl) {
-      navigator.share({
-        title: 'תמונה שיצרתי עם AI',
-        text: `יצרתי תמונה מדהימה עם AI לפי התיאור: ${prompt}`,
-        url: imageUrl
-      }).catch(error => console.log('שגיאה בשיתוף:', error));
-    } else {
-      setSnackbarMessage('העתק את הקישור לתמונה הושלם ללוח');
-      setSnackbarOpen(true);
-    }
-  };
-
   // פיזור נקודות בסגנון אקווארל בפינות
   const renderWatercolorDots = (position: string): JSX.Element[] => {
     // מיקומים ספציפיים לפי התמונה
@@ -403,21 +378,7 @@ return (
               צייר לי ציור
             </Typography>
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button 
-              color="inherit" 
-              sx={{ mr: 2 }}
-              startIcon={<HistoryIcon />}
-            >
-              היסטוריה
-            </Button>
-            <Button 
-              color="inherit"
-              startIcon={<FavoriteIcon />}
-            >
-              מועדפים
-            </Button>
-          </Box>
+          {/* Navigation buttons removed */}
         </Toolbar>
       </StyledAppBar>
 
@@ -468,7 +429,6 @@ return (
           </Alert>
         )}
 
-        {/* אזור האינטראקציה */}
         <Paper 
           elevation={3} 
           sx={{ 
@@ -606,19 +566,6 @@ return (
                       >
                         הורד תמונה
                       </Button>
-                      <IconButton 
-                        aria-label="הוסף למועדפים"
-                        onClick={toggleFavorite}
-                        color={favorite ? "error" : "default"}
-                      >
-                        {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                      </IconButton>
-                      <IconButton 
-                        aria-label="שתף תמונה"
-                        onClick={shareImage}
-                      >
-                        <ShareIcon />
-                      </IconButton>
                     </CardActions>
                   </ImagePreviewCard>
                 </Grid>
@@ -717,4 +664,4 @@ return (
     </Box>
   </ThemeProvider>
 );
-}   
+}

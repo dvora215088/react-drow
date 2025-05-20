@@ -20,7 +20,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import PaletteIcon from '@mui/icons-material/Palette';
 import EditIcon from '@mui/icons-material/Edit';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import SaveIcon from '@mui/icons-material/Save';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const API_BASE_URL = 'https://server-drow.onrender.com';
@@ -157,33 +156,6 @@ const FileUploadForm: React.FC = () => {
       setUploading(false);
     }
   };
-
-  const saveImage = () => {
-    if (!file) {
-      setError('יש לבחור קובץ תמונה תחילה');
-      return;
-    }
-
-    // יוצר אובייקט URL לקובץ שנבחר
-    const imageUrl = URL.createObjectURL(file);
-    
-    // יוצר אלמנט קישור להורדת הקובץ
-    const downloadLink = document.createElement('a');
-    downloadLink.href = imageUrl;
-    downloadLink.download = file.name;
-    
-    // לוחץ על הקישור באופן אוטומטי להתחלת ההורדה
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-    
-    // שחרור אובייקט ה-URL
-    URL.revokeObjectURL(imageUrl);
-    
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
-  };
-
   return (
     <RoundedPaper>
       {/* כדורים כחולים לעיצוב */}
@@ -273,9 +245,9 @@ const FileUploadForm: React.FC = () => {
             <MenuItem value="" disabled>
               <em>בחר רמה</em>
             </MenuItem>
-            <MenuItem value="easy">קל</MenuItem>
-            <MenuItem value="medium">בינוני</MenuItem>
-            <MenuItem value="hard">קשה</MenuItem>
+            <MenuItem value="קל">קל</MenuItem>
+            <MenuItem value="בינוני">בינוני</MenuItem>
+            <MenuItem value="קשה">קשה</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -402,34 +374,7 @@ const FileUploadForm: React.FC = () => {
           )}
         </Button>
 
-        <Button
-          fullWidth
-          variant="contained"
-          onClick={saveImage}
-          disabled={!file}
-          sx={{
-            borderRadius: '30px',
-            padding: '12px',
-            backgroundColor: '#43a047',
-            boxShadow: '0 4px 10px rgba(67, 160, 71, 0.3)',
-            transition: 'all 0.3s',
-            '&:hover': {
-              backgroundColor: '#2e7d32',
-              transform: 'translateY(-2px)',
-              boxShadow: '0 6px 15px rgba(67, 160, 71, 0.4)',
-            },
-            '&.Mui-disabled': {
-              backgroundColor: '#ccc',
-            }
-          }}
-        >
-          <>
-            <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>
-              <SaveIcon sx={{ mr: 1 }} />
-              שמירת תמונה
-            </Box>
-          </>
-        </Button>
+      
       </Box>
     </RoundedPaper>
   );
