@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { COLORS } from '../../COLORS';
+import logo from "../../assets/home.png";
 
 const ImagePanel = () => {
   return (
@@ -27,9 +28,8 @@ const ImagePanel = () => {
         }}
       >
         <img 
-          src="src/assets/home.png" 
-          alt="דוגמא לאמנות" 
-          style={{
+         src={logo} alt="home"
+            style={{
             width: '100%',
             maxHeight: '65vh',
             objectFit: 'contain',

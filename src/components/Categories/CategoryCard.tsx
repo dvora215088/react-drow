@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles"
 import { COLORS } from "../../COLORS"
 import worksheetServiceInstance from "../../services/worksheetService"
 import WorksheetCardImage from "../WorkSheet/WorksheetCardImage"
-
+import logo from "../../assets/logo.png";
 interface CategoryCardProps {
   category: any
   onClick: () => void
@@ -115,7 +115,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   category,
   onClick,
   index = 0,
-  logoUrl = "src/assets/logo.png", // Default placeholder, replace with your logo
+  logoUrl = logo,
 }) => {
   const primaryColor = getColor(index)
   const secondaryColor = getColor(index + 1)
@@ -207,7 +207,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 }}
               >
                 {loading ? (
-                  // Subtle loading animation
                   <Box 
                     sx={{
                       width: '40px',
