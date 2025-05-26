@@ -20,7 +20,6 @@ import {
 } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import SearchIcon from '@mui/icons-material/Search';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoIcon from '@mui/icons-material/Info';
 import worksheetServiceInstance from '../../services/worksheetService';
@@ -95,21 +94,7 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
   };
 
   // Handle worksheet download
-  const handleDownload = async (worksheetId: number) => {
-    try {
-      const blob = await worksheetServiceInstance.downloadWorksheet(worksheetId);
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `worksheet-${worksheetId}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (error) {
-      console.error('Download failed:', error);
-    }
-  };
+ 
 
   return (
     <Box 
