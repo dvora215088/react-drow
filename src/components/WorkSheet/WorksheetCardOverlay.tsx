@@ -90,7 +90,6 @@ const WorksheetCardOverlay: React.FC<WorksheetCardOverlayProps> = ({
         />
       </Box>
 
-      {/* Action buttons */}
       <WorksheetCardActions worksheetId={worksheet.id} />
     </Box>
   );

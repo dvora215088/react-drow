@@ -56,7 +56,6 @@ const WorksheetCard: React.FC<WorksheetCardProps> = ({
 
         />
         
-        {/* Worksheet Information Overlay */}
         <WorksheetCardOverlay 
           worksheet={worksheet} 
           rating={rating} 

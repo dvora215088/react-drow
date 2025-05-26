@@ -12,14 +12,7 @@ const WorksheetCardActions: React.FC<WorksheetCardActionsProps> = ({
 }) => {
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
-      <Box 
-        sx={{ 
-          bgcolor: `${COLORS[6]}50`, // אפור בהיר עם שקיפות
-          borderRadius: '4px',
-          overflow: 'hidden',
-          display: 'flex'
-        }}
-      >
+    
         <WorksheetDownloadButton 
           worksheetId={worksheetId}
           buttonText=""
@@ -30,7 +23,6 @@ const WorksheetCardActions: React.FC<WorksheetCardActionsProps> = ({
           buttonText=""
           className="print-button"
         />
-      </Box>
     </Box>
   );
 };

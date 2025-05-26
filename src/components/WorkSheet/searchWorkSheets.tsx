@@ -116,8 +116,7 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
       sx={{ 
         width: '100%', 
         maxWidth: 300, 
-        // מיקום רגיל בזרימת הדף (זזה עם תוכן הדף)
-        // התאמה לצד ימין בלבד עם מיקום נמוך יותר
+    
         float: 'right',
         mr: 2,
         mb: 4,
@@ -315,15 +314,7 @@ const WorksheetSearchByCategory: React.FC<WorksheetSearchProps> = ({ categoryId,
             </DialogContent>
             <DialogActions sx={{ bgcolor: 'white' }}>
               <Button onClick={handleCloseDialog}>סגור</Button>
-              <Button 
-                onClick={() => handleDownload(selectedWorksheet.id)} 
-                startIcon={<FileDownloadIcon />}
-                variant="contained"
-                color="primary"
-                dir="ltr"
-              >
-                הורד
-              </Button>
+           
             </DialogActions>
           </>
         )}
