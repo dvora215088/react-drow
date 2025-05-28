@@ -45,7 +45,7 @@ const RatingWidget: React.FC<RatingWidgetProps> = ({ worksheetId, initialRating 
       <Rating
         name={`rating-${worksheetId}`}
         value={rating}
-        precision={0.5}
+        precision={1}
         max={5}
         icon={<Star sx={{ color: COLORS[12] }} fontSize="small" />}
         emptyIcon={<StarBorder sx={{ color: 'rgba(0,0,0,0.3)' }} fontSize="small" />}
