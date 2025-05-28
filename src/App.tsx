@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Auth from './components/HomePage/Auth';
 import { AuthProvider } from './context/AuthContext';
@@ -16,20 +16,22 @@ function App() {
   return (
     <AuthProvider>
       <FavoriteProvider>
-        <HashRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<NavigationMenu />} />
-            <Route path="/categories" element={<CategoriesDisplay />} />
-            <Route path="/my-paintings" element={<WorksheetPage />} />
-            <Route path="/upload-painting" element={<FileUpload />} />
-            <Route path="/ai-creation" element={<AiImageModal />} />
-            <Route path="/favorites" element={<FavoriteWorksheets />} />
-            <Route path="/worksheets/:categoryId" element={<WorksheetPage />} />
-            <Route path="/" element={<Auth />} />
-          </Routes>
-        </HashRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<NavigationMenu />} />
+          <Route path="/categories" element={<CategoriesDisplay />} />
+          <Route path="/my-paintings" element={<WorksheetPage />} />
+          <Route path="/upload-painting" element={<FileUpload />} />
+          <Route path="/ai-creation" element={<AiImageModal />} />
+          <Route path="/favorites" element={<FavoriteWorksheets />} />
+          <Route
+            path="/worksheets/:categoryId"
+            element={<WorksheetPage />}
+          />
+          <Route path="/" element={<Auth />} />
+          <Route path="*" element={<Auth />} />
+        </Routes>
       </FavoriteProvider>
     </AuthProvider>
   );
