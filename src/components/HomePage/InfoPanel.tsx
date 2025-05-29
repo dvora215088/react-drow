@@ -66,7 +66,7 @@ const InfoPanel = () => {
         <Box sx={{ textAlign: 'center' }}>
           <ImageIcon sx={{ fontSize: 24, color: COLORS[0], mb: 0.5 }} /> {/* light blue */}
           <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>
-            גלריות אישיות
+           קטגוריות מגוונות
           </Typography>
         </Box>
         

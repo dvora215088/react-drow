@@ -574,83 +574,133 @@ return (
           </Fade>
         )}
         
-        {/* אזור מידע נוסף / תכונות */}
-        {!imageUrl && (
-          <Box sx={{ mt: 8, mb: 5 }}>
-            <Typography 
-              variant="h5" 
-              component="h2" 
-              align="center" 
-              sx={{ mb: 4, fontWeight: 600 }}
-            >
-              כיצד זה עובד?
-            </Typography>
-            
-            <Grid container spacing={3} justifyContent="center">
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper 
-                  sx={{ 
-                    p: 3, 
-                    height: '100%',
-                    borderRadius: '16px',
-                    transition: 'transform 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                    }
-                  }}
-                >
-                  <Typography variant="h6" gutterBottom>
-                    1. תארו את הציור
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    ככל שהתיאור שלכם יהיה מפורט יותר, כך תקבלו תוצאה מדויקת יותר. 
-                    ניתן לציין סגנון אמנותי, צבעים, אווירה ועוד.
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper 
-                  sx={{ 
-                    p: 3, 
-                    height: '100%',
-                    borderRadius: '16px',
-                    transition: 'transform 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                    }
-                  }}
-                >
-                  <Typography variant="h6" gutterBottom>
-                    2. לחצו על ״צור תמונה״
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    המערכת תשתמש בבינה מלאכותית מתקדמת כדי להפוך את התיאור שלכם לתמונה ויזואלית איכותית תוך שניות.
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper 
-                  sx={{ 
-                    p: 3, 
-                    height: '100%',
-                    borderRadius: '16px',
-                    transition: 'transform 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                    }
-                  }}
-                >
-                  <Typography variant="h6" gutterBottom>
-                    3. הורידו או שתפו
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    התמונה שלכם מוכנה! הורידו אותה למחשב או שתפו עם חברים ברשתות החברתיות.
-                  </Typography>
-                </Paper>
-              </Grid>
+        {/* אזור מידע נוסף / תכונות - עבר לסוף הקומפוננטה */}
+        <Box sx={{ mt: 8, mb: 5 }}>
+          <Typography 
+            variant="h5" 
+            component="h2" 
+            align="center" 
+            sx={{ mb: 4, fontWeight: 600 }}
+          >
+            כיצד זה עובד?
+          </Typography>
+          
+          <Grid container spacing={3} justifyContent="center" dir="rtl">
+            <Grid item xs={12} sm={6} md={4} sx={{ order: { md: 3 } }}>
+              <Paper 
+                sx={{ 
+                  p: 3, 
+                  height: '100%',
+                  borderRadius: '16px',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                  }
+                }}
+              >
+                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Box 
+                    component="span" 
+                    sx={{ 
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                      fontSize: '1.1rem',
+                      fontWeight: 'bold',
+                      mr: 2
+                    }}
+                  >
+                    3
+                  </Box>
+                  הורידו או שתפו                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                התמונה שלכם מוכנה! הורידו אותה למחשב או שתפו עם חברים ברשתות החברתיות.
+                </Typography>
+              </Paper>
             </Grid>
-          </Box>
-        )}
+            <Grid item xs={12} sm={6} md={4} sx={{ order: { md: 2 } }}>
+              <Paper 
+                sx={{ 
+                  p: 3, 
+                  height: '100%',
+                  borderRadius: '16px',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                  }
+                }}
+              >
+                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Box 
+                    component="span" 
+                    sx={{ 
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                      fontSize: '1.1rem',
+                      fontWeight: 'bold',
+                      mr: 2
+                    }}
+                  >
+                    2
+                  </Box>
+                  לחצו על ״צור תמונה״
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  המערכת תשתמש בבינה מלאכותית מתקדמת כדי להפוך את התיאור שלכם לתמונה ויזואלית איכותית תוך שניות.
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} sx={{ order: { md: 1 } }}>
+              <Paper 
+                sx={{ 
+                  p: 3, 
+                  height: '100%',
+                  borderRadius: '16px',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                  }
+                }}
+              >
+                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Box 
+                    component="span" 
+                    sx={{ 
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                      fontSize: '1.1rem',
+                      fontWeight: 'bold',
+                      mr: 2
+                    }}
+                  >
+                    1
+                  </Box>
+                  תארו את הציור
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                ככל שהתיאור שלכם יהיה מפורט יותר, כך תקבלו תוצאה מדויקת יותר. ניתן לציין סגנון אמנותי, צבעים, אווירה ועוד.
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Box>
       </MainContentArea>
       
       {/* הודעת סנאקבר (Toast) */}
