@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import PaletteIcon from '@mui/icons-material/Palette';
-// Styled components
 const ImagePlaceholder = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',

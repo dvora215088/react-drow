@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react"
 import { Card, CardActionArea, CardContent, CardMedia, Typography, alpha, Box } from "@mui/material"
 import { styled } from "@mui/material/styles"
@@ -6,6 +5,7 @@ import { COLORS } from "../../COLORS"
 import worksheetServiceInstance from "../../services/worksheetService"
 import WorksheetCardImage from "../WorkSheet/WorksheetCardImage"
 import logo from "../../assets/logo.png";
+
 interface CategoryCardProps {
   category: any
   onClick: () => void
@@ -54,6 +54,8 @@ const StyledCardContent = styled(CardContent)(({}) => ({
   borderTop: `2px solid ${alpha(COLORS[0], 0.2)}`,
   transition: "all 0.3s ease",
   position: "relative",
+  zIndex: 10, // הוספנו z-index גבוה כדי שהחלק התחתון יעלה מעל התמונה
+  background: alpha("#FFFFFF", 0.95), // הוספנו רקע כדי לכסות את התמונה מתחת
 }))
 
 const CategoryTitle = styled(Typography)(({}) => ({
@@ -126,23 +128,18 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   const hasEffectRun = useRef(false);
 
   useEffect(() => {
-    // בדיקה אם הפונקציה כבר רצה
     if (hasEffectRun.current) {
-      return; // אם כבר רצה, לא עושים כלום
+      return;
     }
     
-    // מסמנים שהפונקציה רצה
     hasEffectRun.current = true;
     
-    // פונקציה לטעינת וורקשיטים 
     const loadWorksheets = async () => {
       try {
         setLoading(true);
         
-        // קבלת כל הקטגוריות עם הוורקשיטים שלהן
         const data = await worksheetServiceInstance.getWorksheetsByCategories();
         
-        // מציאת הנתונים לקטגוריה הספציפית - בדיקה אם category לא undefined
         if (category && data) {
           const thisCategoryData = data.find((item) => 
             item.categoryId === category.id || 
@@ -150,10 +147,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           );
           
           if (thisCategoryData && thisCategoryData.hasWorksheet) {
-            // אם יש וורקשיט לקטגוריה זו, השתמש בו
             setCategoryWorksheets([thisCategoryData.worksheet]);
           } else {
-            // אין וורקשיטים לקטגוריה זו
             setCategoryWorksheets([]);
           }
         }
@@ -171,6 +166,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     // אין צורך בתלויות כי אנחנו רוצים שזה ירוץ פעם אחת בלבד
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   return (
     <StyledCard cardIndex={index}>
       <CardActionArea onClick={onClick}>
